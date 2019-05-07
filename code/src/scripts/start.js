@@ -99,11 +99,6 @@ function start(material, video) {
 	var loader = new THREE.OBJLoader();
 	loader.load('../assets/meshes/hands.obj', function(object) {
 		
-		var color = new THREE.MeshLambertMaterial({
-			color: "#CCCCCC",
-			side: THREE.FrontSide
-		})
-		
 		var geometry = object.children[0].geometry;
 
 		geometry.computeBoundingBox();
@@ -111,8 +106,10 @@ function start(material, video) {
 		var amount = boundingBox.max.x - boundingBox.min.x;
 		geometry.translate(-amount/2, 0, 0);
 
+		console.log(material);
+
 		object.rotation.x = Math.PI/2;
-		object.children[0].material = color;
+		object.children[0].material = material;
 		arWorldRoot.add(object);
 		console.log(object);
 	})
@@ -120,13 +117,14 @@ function start(material, video) {
 	var size = 3;
 	var geometry = new THREE.CircleGeometry(2, 32)
 	var mat = new THREE.MeshLambertMaterial({
-		color: "#C3ED59",
+		color: "#CCCCCC",
 		side: THREE.DoubleSide
 	})
 	
 	var mesh = new THREE.Mesh(geometry, mat);
 	// mesh.position.x = -size/2 + 1;
 	// mesh.position.z = -(size * 1.425)/2 + 1;
+	mesh.name = "hands";
 	mesh.rotation.x = -Math.PI/2;
 	arWorldRoot.add(mesh);
 	
@@ -142,18 +140,19 @@ function start(material, video) {
 	// run the rendering loop
 	var lastTimeMsec= null;
 	requestAnimationFrame(function animate(nowMsec){
-
-		// if(scene.children[2].visible) {
-		// 	if(video && video.paused) video.play();
-		// 	scene.children[2].children[0].visible = true;
-		// }
-		// else {
-		// 	if(video) {
-		// 		video.pause(); 
-		// 		video.currentTime = 0;
-		// 	}
-		// 	scene.children[2].children[0].visible = false;
-		// }
+		
+		if(scene.children[2].visible) {
+			if(video && video.paused) video.play();
+			scene.getObjectByName("hands").visible = true;
+		}
+		
+		else {
+			if(video) {
+				video.pause(); 
+				video.currentTime = 0;
+			}
+			scene.getObjectByName("hands").visible = true;
+		}
 	
 		// keep looping
 		requestAnimationFrame( animate );
