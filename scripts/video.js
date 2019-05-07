@@ -2,7 +2,7 @@ function createMaterial() {
 
 	var video = document.createElement('video');
 	enableInlineVideo(video);
-	video.src = "assets/make.mp4";
+	video.src = "assets/hands.mp4";
 	video.loop = true
 	video.id = "video-texture";
 	video.setAttribute('playsinline', '');
@@ -21,15 +21,15 @@ function createMaterial() {
 
 	document.body.appendChild(video);
 
-	var texture = new THREE.VideoTexture( video );
+	var texture = new THREE.VideoTexture(video);
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 	texture.format = THREE.RGBFormat;
 
-	var material = new THREE.MeshBasicMaterial({
+	var material = new THREE.MeshLambertMaterial({
 		map: texture,
 		color: '#ffffff',
-		side: THREE.DoubleSide
+		side: THREE.FrontSide
 	})
 
 	start(material, video);
