@@ -1,5 +1,9 @@
 function start(material, video) {
 
+	var reg = new RegExp(/(hands-institucional)/g);
+	var href = window.location.href;
+	var prod = href.match(reg);
+
 	THREEx.ArToolkitContext.baseURL = '../';
 
 	var renderer	= new THREE.WebGLRenderer({
@@ -59,7 +63,7 @@ function start(material, video) {
 	
 	// create atToolkitContext
 	var arToolkitContext = new THREEx.ArToolkitContext({
-		cameraParametersUrl: THREEx.ArToolkitContext.baseURL + 'lib/data/data/camera_para.dat',
+		cameraParametersUrl: prod ? 'assets/camera_para.dat' : THREEx.ArToolkitContext.baseURL + 'assets/camera_para.dat',
 		detectionMode: 'mono',
 		maxDetectionRate: 30,
 		canvasWidth: 80*3,
@@ -83,7 +87,7 @@ function start(material, video) {
 	scene.add(markerRoot)
 	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'pattern',
-		patternUrl : THREEx.ArToolkitContext.baseURL + 'lib/data/data/qr-test.patt'
+		patternUrl : prod ? 'assets/qr-test.patt' : THREEx.ArToolkitContext.baseURL + 'assets/qr-test.patt'
 	})
 	
 	// build a smoothedControls
