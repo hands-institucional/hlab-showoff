@@ -1,0 +1,86 @@
+body {
+  margin: 0px;
+  overflow: hidden;
+  font-family: Monospace;
+}
+
+body p {
+  line-height: 1.6;
+  font-size: 18px;
+  width: 90%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+body div {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+}
+
+body .sound {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border: none;
+  background-color: #ccc;
+  border-radius: 10px;
+  outline: none;
+  -webkit-box-shadow: 0 5px #999, 0 10px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px 1px white;
+          box-shadow: 0 5px #999, 0 10px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px 1px white;
+  z-index: 99;
+  -webkit-transition: margin-bottom .3s, -webkit-box-shadow .3s;
+  transition: margin-bottom .3s, -webkit-box-shadow .3s;
+  transition: margin-bottom .3s, box-shadow .3s;
+  transition: margin-bottom .3s, box-shadow .3s, -webkit-box-shadow .3s;
+  background-size: 40px;
+}
+
+body .sound img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  height: 40px;
+  width: auto;
+}
+
+body .sound img.muted-icon {
+  height: 36px;
+  display: none;
+}
+
+body .sound img.unmuted-icon {
+  display: block;
+}
+
+body .sound.muted img.muted-icon {
+  display: block;
+}
+
+body .sound.muted img.unmuted-icon {
+  display: none;
+}
+
+body .sound:active {
+  margin-bottom: -5px;
+  -webkit-box-shadow: 0 0px #999, 0 5px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px 1px white;
+          box-shadow: 0 0px #999, 0 5px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px 1px white;
+}
+
+#video-texture {
+  opacity: 0;
+}
+
+.IIV::-webkit-media-controls-play-button,
+.IIV::-webkit-media-controls-start-playback-button {
+  opacity: 0;
+  pointer-events: none;
+  width: 5px;
+}
+/*# sourceMappingURL=index.css.map */
