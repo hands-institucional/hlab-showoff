@@ -110,16 +110,14 @@ function start(material, video) {
 		var amount = boundingBox.max.x - boundingBox.min.x;
 		geometry.translate(-amount/2, 0, 0);
 
-		console.log(material);
-
 		object.rotation.x = Math.PI/2;
 		object.children[0].material = material;
+		object.scale.set(0.5, 0.5, 0.5);
 		arWorldRoot.add(object);
-		console.log(object);
 	})
 	
 	var size = 3;
-	var geometry = new THREE.CircleGeometry(2, 32)
+	var geometry = new THREE.CircleGeometry(1, 32)
 	var mat = new THREE.MeshLambertMaterial({
 		color: "#CCCCCC",
 		side: THREE.DoubleSide
