@@ -101,7 +101,7 @@ function start(material, video) {
 	
 	var arWorldRoot = smoothedRoot
 	var loader = new THREE.OBJLoader();
-	loader.load('../assets/meshes/hands.obj', function(object) {
+	loader.load(prod ? 'assets/meshes/hands.obj' : '../assets/meshes/hands.obj', function(object) {
 		
 		var geometry = object.children[0].geometry;
 
