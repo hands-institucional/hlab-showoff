@@ -113,14 +113,14 @@ function start(videoMat, videoContent) {
 	var arWorldRoot = smoothedRoot;
 
 	//TV
-	// GLTF2Loader.load(prod ? 'assets/meshes/RetroTV.glb' : '../assets/meshes/RetroTV.glb', function(object) {
-	// 	let tv = object.scene.getObjectByName("Retro_TV");
-	// 	tv.name = "tv";
-	// 	tv.position.y += 0.3;
-	// 	// tv.scale.set(1.5, 1.5, 1.5);
-	// 	tv.castShadow = true;
-	// 	arWorldRoot.add(tv);
-	// })
+	GLTF2Loader.load(prod ? 'assets/meshes/RetroTV.glb' : '../assets/meshes/RetroTV.glb', function(object) {
+		let tv = object.scene.getObjectByName("Retro_TV");
+		tv.name = "tv";
+		tv.position.y += 0.3;
+		// tv.scale.set(1.5, 1.5, 1.5);
+		tv.castShadow = true;
+		arWorldRoot.add(tv);
+	})
 	//FIM TV
 	
 	//BASE
@@ -137,34 +137,18 @@ function start(videoMat, videoContent) {
 	arWorldRoot.add(base);
 	//FIM BASE
 
-	// //VIDEO
-	// var videoSize = 0.5;
-	// var proportion = 1.14;
-	// var videoGeo = new THREE.PlaneGeometry(videoSize * proportion, videoSize, 32);
-	// var video = new THREE.Mesh(videoGeo, videoMat);
-	// video.name = "video";
-	// video.position.x = -0.13;
-	// video.position.y = 0.665;
-	// video.position.z = 0.3;
-	// // video.scale.set(1.5, 1.5, 1.5);
-	// arWorldRoot.add(video);
-	// //FIM VIDEO
-
-		var objLoader = new THREE.OBJLoader();
-	objLoader.load(prod ? 'assets/meshes/hands.obj' : '../assets/meshes/hands.obj', function(object) {
-		
-		var geometry = object.children[0].geometry;
-
-		geometry.computeBoundingBox();
-		var boundingBox = geometry.boundingBox;
-		var amount = boundingBox.max.x - boundingBox.min.x;
-		geometry.translate(-amount/2, 0, 0);
-
-		object.rotation.x = Math.PI/2;
-		object.children[0].material = videoMat;
-		object.scale.set(0.5, 0.5, 0.5);
-		arWorldRoot.add(object);
-	})
+	//VIDEO
+	var videoSize = 0.5;
+	var proportion = 1.14;
+	var videoGeo = new THREE.PlaneGeometry(videoSize * proportion, videoSize, 32);
+	var video = new THREE.Mesh(videoGeo, videoMat);
+	video.name = "video";
+	video.position.x = -0.13;
+	video.position.y = 0.665;
+	video.position.z = 0.3;
+	// video.scale.set(1.5, 1.5, 1.5);
+	arWorldRoot.add(video);
+	//FIM VIDEO
 	
 	//TRIDENT
 	// OBJLoader.load(prod ? 'assets/meshes/trident.obj' : '../assets/meshes/trident.obj', function(object) {
