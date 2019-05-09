@@ -1,4 +1,4 @@
-function start(material, video) {
+function start(videoMat, videoContent) {
 
 	var reg = new RegExp(/(hands-institucional)/g);
 	var href = window.location.href;
@@ -6,7 +6,7 @@ function start(material, video) {
 
 	THREEx.ArToolkitContext.baseURL = '../';
 
-	var renderer	= new THREE.WebGLRenderer({
+	var renderer = new THREE.WebGLRenderer({
 		antialias : true,
 		alpha: true,
 		logarithmicDepthBuffer: true
@@ -23,6 +23,7 @@ function start(material, video) {
 	
 	var onRenderFcts= [];
 	var scene = new THREE.Scene();
+	var GLTF2Loader = new THREE.GLTF2Loader();
 
 	var ambient = new THREE.AmbientLight( 0x666666 );
 	scene.add(ambient);
@@ -45,7 +46,7 @@ function start(material, video) {
 	});
 	
 	arToolkitSource.init(function onReady(){
-		onResize()
+		onResize();
 	});
 	
 	window.addEventListener('resize', function(){
@@ -99,61 +100,66 @@ function start(material, video) {
 		lerpScale: 0.01,
 	})
 	
-	var arWorldRoot = smoothedRoot
-	var loader = new THREE.OBJLoader();
-	loader.load(prod ? 'assets/meshes/hands.obj' : '../assets/meshes/hands.obj', function(object) {
-		
-		var geometry = object.children[0].geometry;
+	var arWorldRoot = smoothedRoot;
 
-		geometry.computeBoundingBox();
-		var boundingBox = geometry.boundingBox;
-		var amount = boundingBox.max.x - boundingBox.min.x;
-		geometry.translate(-amount/2, 0, 0);
-
-		object.rotation.x = Math.PI/2;
-		object.children[0].material = material;
-		object.scale.set(0.5, 0.5, 0.5);
-		arWorldRoot.add(object);
+	//TV
+	GLTF2Loader.load(prod ? 'assets/meshes/RetroTV.glb' : '../assets/meshes/RetroTV.glb', function(object) {
+		let tv = object.scene.getObjectByName("Retro_TV");
+		tv.name = "tv";
+		tv.position.y += 0.3;
+		// tv.scale.set(1.5, 1.5, 1.5);
+		tv.castShadow = true;
+		arWorldRoot.add(tv);
 	})
+	//FIM TV
 	
-	var size = 3;
-	var geometry = new THREE.CircleGeometry(1, 32)
-	var mat = new THREE.MeshLambertMaterial({
-		color: "#CCCCCC",
+	//BASE
+	var baseGeo = new THREE.CylinderGeometry(1, 1, 0.1, 32 );
+	var baseMat = new THREE.MeshLambertMaterial({
+		color: "#AAAAAA",
 		side: THREE.DoubleSide
 	})
-	
-	var mesh = new THREE.Mesh(geometry, mat);
-	// mesh.position.x = -size/2 + 1;
-	// mesh.position.z = -(size * 1.425)/2 + 1;
-	mesh.name = "hands";
-	mesh.rotation.x = -Math.PI/2;
-	arWorldRoot.add(mesh);
-	
-	// var stats = new Stats();
-	// document.body.appendChild( stats.dom );
+	var base = new THREE.Mesh(baseGeo, baseMat);
+	// base.scale.set(1.5, 1.5, 1.5);
+	base.castShadow = true;
+	base.receiveShadow = true;
+	base.name = "base";
+	arWorldRoot.add(base);
+	//FIM BASE
+
+	//VIDEO
+	var videoSize = 0.5;
+	var proportion = 1.14;
+	var videoGeo = new THREE.PlaneGeometry(videoSize * proportion, videoSize, 32);
+	var video = new THREE.Mesh(videoGeo, videoMat);
+	video.name = "video";
+	video.position.x = -0.13;
+	video.position.y = 0.665;
+	video.position.z = 0.3;
+	// video.scale.set(1.5, 1.5, 1.5);
+	arWorldRoot.add(video);
+
+	//FIM VIDEO
 	
 	// render the scene
 	onRenderFcts.push(function(){
 		renderer.render( scene, camera );
-		// stats.update();
 	})
-	
-	// run the rendering loop
+
 	var lastTimeMsec= null;
 	requestAnimationFrame(function animate(nowMsec){
 		
-		if(scene.children[2].visible) {
-			if(video && video.paused) video.play();
-			scene.getObjectByName("hands").visible = true;
+		if(scene.children[4].visible) {
+			if(videoContent && videoContent.paused) videoContent.play();
+			scene.getObjectByName("base").visible = true;
 		}
 		
 		else {
-			if(video) {
-				video.pause(); 
-				video.currentTime = 0;
+			if(videoContent) {
+				videoContent.pause(); 
+				// videoContent.currentTime = 0;
 			}
-			scene.getObjectByName("hands").visible = true;
+			scene.getObjectByName("base").visible = true;
 		}
 	
 		// keep looping
