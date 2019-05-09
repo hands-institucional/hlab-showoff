@@ -2,7 +2,7 @@ function createMaterial() {
 
 	var video = document.createElement('video');
 	enableInlineVideo(video);
-	video.src = "assets/hands.mp4";
+	video.src = "assets/videos/bubbaloo.mp4";
 	video.loop = true
 	video.id = "video-texture";
 	video.setAttribute('playsinline', '');
@@ -14,7 +14,7 @@ function createMaterial() {
 			event.currentTarget.classList.remove('muted');
 		}
 		else {
-			video.muted = true; 
+			video.muted = true;
 			event.currentTarget.classList.add('muted');
 		}
 	})
@@ -26,11 +26,11 @@ function createMaterial() {
 	texture.magFilter = THREE.LinearFilter;
 	texture.format = THREE.RGBFormat;
 
-	var material = new THREE.MeshLambertMaterial({
+	var videoMat = new THREE.MeshLambertMaterial({
 		map: texture,
 		color: '#ffffff',
 		side: THREE.FrontSide
 	})
 
-	start(material, video);
+	start(videoMat, video);
 }
