@@ -2,7 +2,7 @@ function createMaterial() {
 
 	var video = document.createElement('video');
 	enableInlineVideo(video);
-	video.src = "assets/videos/bubbaloo.mp4";
+	video.src = "assets/videos/hands.mp4";
 	video.loop = true
 	video.id = "video-texture";
 	video.setAttribute('playsinline', '');

@@ -98,7 +98,7 @@ function startTrident() {
 	scene.add(markerRoot)
 	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'pattern',
-		patternUrl : prod ? 'assets/qr-test.patt' : THREEx.ArToolkitContext.baseURL + 'assets/qr-test.patt'
+		patternUrl : prod ? 'assets/qr-test-2.patt' : THREEx.ArToolkitContext.baseURL + 'assets/qr-test-2.patt'
 	})
 	
 	// build a smoothedControls
