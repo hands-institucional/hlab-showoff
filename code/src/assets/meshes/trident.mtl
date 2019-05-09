@@ -1,0 +1,9 @@
+newmtl phong1
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 512.000000
+d 1.000000
+Tr 0.000000
+map_Kd assets/meshes/BlueBerry_Trident_Box_BaseColor_1024.JPG 
+

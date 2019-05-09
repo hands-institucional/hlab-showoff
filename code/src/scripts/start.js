@@ -24,6 +24,8 @@ function start(videoMat, videoContent) {
 	var onRenderFcts= [];
 	var scene = new THREE.Scene();
 	var GLTF2Loader = new THREE.GLTF2Loader();
+	var OBJLoader = new THREE.OBJLoader();
+	
 
 	var ambient = new THREE.AmbientLight( 0x666666 );
 	scene.add(ambient);
@@ -38,7 +40,7 @@ function start(videoMat, videoContent) {
 	directionalLight.castShadow = true;
 	scene.add(directionalLight);
 	
-	var camera = new THREE.Camera();
+	var camera = new THREE.PerspectiveCamera(45, 1, 1, 100);
 	scene.add(camera);
 	
 	var arToolkitSource = new THREEx.ArToolkitSource({
@@ -73,7 +75,15 @@ function start(videoMat, videoContent) {
 	
 	// initialize it
 	arToolkitContext.init(function onCompleted(){
-		camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+
+		let m = arToolkitContext.getProjectionMatrix();
+		let far = 1000;
+		let near = 0.1;
+	
+		m.elements[10] = -(far + near) / (far - near);
+		m.elements[14] = -(2 * far * near) / (far - near);
+	
+		camera.projectionMatrix.copy(m);
 	})
 	
 	// update artoolkit on every frame
@@ -138,8 +148,35 @@ function start(videoMat, videoContent) {
 	video.position.z = 0.3;
 	// video.scale.set(1.5, 1.5, 1.5);
 	arWorldRoot.add(video);
-
 	//FIM VIDEO
+	
+	//TRIDENT
+	// OBJLoader.load(prod ? 'assets/meshes/trident.obj' : '../assets/meshes/trident.obj', function(object) {
+	// 	var textureLoader = new THREE.TextureLoader();
+	// 	var box = textureLoader.load('assets/images/trident-box.jpg');
+	// 	box.generateMipmaps = true;
+
+	// 	object.traverse(function (child){
+	// 		if (child instanceof THREE.Mesh) { 	
+	// 			var tempMaterial = new THREE.MeshPhongMaterial({
+	// 				map: box,
+	// 				side: THREE.FrontSide,
+	// 				polygonOffset: false,
+	// 				polygonOffsetFactor: 0.0,
+	// 				polygonOffsetUnits: 1.0
+	// 			})
+	// 			child.material = tempMaterial;
+	// 		}
+	// 	})
+	// 	console.log(object);
+	// 	let trident = object;
+	// 	trident.name = "trident";
+	// 	trident.scale.set(0.01, 0.01, 0.01);
+	// 	trident.position.y += 0.3;
+	// 	trident.castShadow = true;
+	// 	arWorldRoot.add(trident);
+	// })
+	//FIM TRIDENT
 	
 	// render the scene
 	onRenderFcts.push(function(){
