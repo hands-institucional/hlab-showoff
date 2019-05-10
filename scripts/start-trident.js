@@ -174,7 +174,10 @@ function startTrident() {
 	requestAnimationFrame(function animate(nowMsec){
 		
 		if(scene.children[4].visible) {
+			document.getElementById("qr-code").classList.remove("not-found");
 			scene.getObjectByName("trident").rotation.y += 0.01;
+		} else {
+			document.getElementById("qr-code").classList.add("not-found");
 		}
 	
 		// keep looping
