@@ -68,6 +68,20 @@ body {
 			box-shadow: 0 0px #999, 0 5px 10px rgba(black, .5), inset 0 0 10px 1px white;
 		}
 	}
+
+	#qr-code {
+		position: absolute;
+		top: 60%;
+		left: 50%;
+		width: 85vw;
+		height: auto;
+		transform: translate(-50%, -50%) scale(.6);
+		opacity: 0;
+
+		&.not-found {
+			opacity: .4;
+		}
+	}
 }
 
 #video-texture {

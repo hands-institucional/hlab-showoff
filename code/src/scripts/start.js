@@ -187,11 +187,13 @@ function start(videoMat, videoContent) {
 	requestAnimationFrame(function animate(nowMsec){
 		
 		if(scene.children[4].visible) {
+			document.getElementById("qr-code").classList.remove("not-found");
 			if(videoContent && videoContent.paused) videoContent.play();
 			scene.getObjectByName("base").visible = true;
 		}
 		
 		else {
+			document.getElementById("qr-code").classList.add("not-found");
 			if(videoContent) {
 				videoContent.pause(); 
 				// videoContent.currentTime = 0;

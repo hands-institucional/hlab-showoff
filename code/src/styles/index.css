@@ -73,6 +73,21 @@ body .sound:active {
           box-shadow: 0 0px #999, 0 5px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px 1px white;
 }
 
+body #qr-code {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  width: 85vw;
+  height: auto;
+  -webkit-transform: translate(-50%, -50%) scale(0.6);
+          transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+}
+
+body #qr-code.not-found {
+  opacity: .4;
+}
+
 #video-texture {
   opacity: 0;
 }
